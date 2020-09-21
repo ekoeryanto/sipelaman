@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "env": {
+    "FIREBASE_CLIENT_EMAIL": "@client-email",
+    "FIREBASE_PRIVATE_KEY": "@private-key",
+    "FIREBASE_PROJECT_ID": "bakekok",
+    "COOKIE_SECRET": "@cookie-salt"
+  },
+  "builds": [
+    {
+      "src": "src/index.ts",
+      "use": "@now/node",
+      "config": {
+        "helpers": false
+      }
+    }
+  ],
+  "routes": [
+    { "src": "/.*", "dest": "/src/index.ts"}
+  ]
+}
