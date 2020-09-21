@@ -24,25 +24,26 @@ const firebasePlugin: FastifyPluginAsync<FirebasePluginOptions> = async (app, op
   const { options = {}, name = FIREBASE_APP_NAME, refreshToken = FIREBASE_REFRESH_TOKEN } = opts;
 
   let credential;
-
-  if (GOOGLE_APPLICATION_CREDENTIALS && FIREBASE_CONFIG) {
-    admin.initializeApp();
-  } else {
-    if (GOOGLE_APPLICATION_CREDENTIALS && !FIREBASE_CONFIG) {
-      credential = admin.credential.applicationDefault();
-    } else if (refreshToken) {
-      credential = admin.credential.refreshToken(refreshToken);
+  if (!admin.apps.length) {
+    if (GOOGLE_APPLICATION_CREDENTIALS && FIREBASE_CONFIG) {
+      admin.initializeApp();
     } else {
-      const {
-        clientEmail = FIREBASE_CLIENT_EMAIL,
-        privateKey = FIREBASE_PRIVATE_KEY,
-        projectId = FIREBASE_PROJECT_ID,
-      } = options;
+      if (GOOGLE_APPLICATION_CREDENTIALS && !FIREBASE_CONFIG) {
+        credential = admin.credential.applicationDefault();
+      } else if (refreshToken) {
+        credential = admin.credential.refreshToken(refreshToken);
+      } else {
+        const {
+          clientEmail = FIREBASE_CLIENT_EMAIL,
+          privateKey = FIREBASE_PRIVATE_KEY,
+          projectId = FIREBASE_PROJECT_ID,
+        } = options;
 
-      credential = admin.credential.cert({ clientEmail, privateKey, projectId });
+        credential = admin.credential.cert({ clientEmail, privateKey, projectId });
+      }
+
+      admin.initializeApp({ credential }, name);
     }
-
-    admin.initializeApp({ credential }, name);
   }
 
   app.decorate("admin", admin);
