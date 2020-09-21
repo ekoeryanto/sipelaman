@@ -1,10 +1,10 @@
 {
   "version": 2,
   "env": {
-    "FIREBASE_CLIENT_EMAIL": "@client-email",
-    "FIREBASE_PRIVATE_KEY": "@private-key",
-    "FIREBASE_PROJECT_ID": "bakekok",
-    "COOKIE_SECRET": "@cookie-salt"
+    "FIREBASE_CLIENT_EMAIL": "@sipelam-client-email",
+    "FIREBASE_PRIVATE_KEY": "@sipelam-private-key",
+    "FIREBASE_PROJECT_ID": "si-pelam",
+    "COOKIE_SECRET": "@sipelam-cookie-salt"
   },
   "builds": [
     {
